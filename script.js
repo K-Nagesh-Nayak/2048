@@ -65,19 +65,19 @@ var rows = 4;
 var columns = 4;
 let bestScore = 0 ;
 let gameOver = false;
-
+const boardDiv = document.getElementById("board");
 
 let touchStartX = 0;
 let touchStartY = 0;
 let touchEndX = 0;
 let touchEndY = 0;
 
-document.addEventListener("touchstart", function (e) {
+boardDiv.addEventListener("touchstart", function (e) {
   touchStartX = e.changedTouches[0].screenX;
   touchStartY = e.changedTouches[0].screenY;
 }, false);
 
-document.addEventListener("touchend", function (e) {
+boardDiv.addEventListener("touchend", function (e) {
   touchEndX = e.changedTouches[0].screenX;
   touchEndY = e.changedTouches[0].screenY;
   handleSwipe();
