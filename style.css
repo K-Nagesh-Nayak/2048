@@ -240,3 +240,37 @@ h2{
 }
 
 
+/* Hide by default */
+/* Mobile-only Button (from earlier) */
+.mobile-only {
+    display: none;
+  }
+  
+  @media screen and (max-width: 767px) {
+    .mobile-only {
+      display: block;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      font-size: 16px;
+      border-radius: 6px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+  
+    /* Hide leaderboard by default on mobile */
+    .leaderboard-container {
+      display: none;
+    }
+  
+    /* Show leaderboard when toggled */
+    .leaderboard-container.show {
+      display: block;
+    }
+  }
+  
+  

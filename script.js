@@ -370,4 +370,8 @@ function noMovesAvailable() {
 }
 
 
-
+document.getElementById("toggleLeaderboardBtn").addEventListener("click", () => {
+    const leaderboard = document.getElementById("leaderboardContainer");
+    leaderboard.classList.toggle("show");
+  });
+  

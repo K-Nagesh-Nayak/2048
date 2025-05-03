@@ -14,7 +14,8 @@
         <div class="game-board">
           <h1>2048</h1>
           <h2>Best Score: <span id="bestScore">0</span> by <span id="bestPlayer">Guest</span></h2>
-          <h2>Score: <span id="score">0</span></h2>
+          <h2>Score: <span id="score">0</span></h2><button id="toggleLeaderboardBtn" class="mobile-only">📊 Show Leaderboard</button>
+
           <div id="board"></div>
           <!-- <button id="newGame">New Game</button> -->
           <button id="logout">Logout</button>
@@ -32,7 +33,7 @@
           
         </div>
       
-        <div class="leaderboard-container">
+        <div class="leaderboard-container" id="leaderboardContainer">
           <h2 class="leaderboard-title">🏆 Leaderboard</h2>
           <ol id="leaderboard" class="leaderboard-list"></ol>
         </div>
