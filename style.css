@@ -249,9 +249,9 @@ h2{
   @media screen and (max-width: 767px) {
     .mobile-only {
       display: block;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
+      /* position: fixed;
+        right: 20px;  bottom: 20px; */
+  
       background-color: #007bff;
       color: white;
       border: none;

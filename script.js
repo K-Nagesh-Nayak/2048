@@ -70,9 +70,14 @@ let bestPlayer = localStorage.getItem("username");
 let logout = document.getElementById("logout");
 
 logout.addEventListener("click", function () {
+    let confirm = window.confirm("Are you sure you want to logout?");
+    if (confirm == false) {
+        return;
+    }else{
     localStorage.removeItem("username");
     localStorage.removeItem("bestScore");
     window.location.reload();
+    }
 })
 
 window.onload = function () {
