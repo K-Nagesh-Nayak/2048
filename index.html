@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    
+
+    <div class="container">
+        <div class="game-board">
+          <h1>2048</h1>
+          <h2>Best Score: <span id="bestScore">0</span> by <span id="bestPlayer">Guest</span></h2>
+          <h2>Score: <span id="score">0</span></h2>
+          <div id="board"></div>
+          <!-- <button id="newGame">New Game</button> -->
+          <button id="logout">Logout</button>
+          <div class="controllers">
+            
+            <div class="dpad">
+              <button id="up" class="arrow">↑</button>
+              <div class="middle-row">
+                <button id="left" class="arrow">←</button>
+                <button id="down" class="arrow">↓</button>
+                <button id="right" class="arrow">→</button>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      
+        <div class="leaderboard-container">
+          <h2 class="leaderboard-title">🏆 Leaderboard</h2>
+          <ol id="leaderboard" class="leaderboard-list"></ol>
+        </div>
+      </div>
+      
+
+    <script src="script.js" type="module"></script>
+
+</body>
+</html>

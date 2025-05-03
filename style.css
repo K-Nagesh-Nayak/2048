@@ -1,0 +1,240 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?q=80&w=2155&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    color:white;
+}
+
+hr {
+    width:100%;
+    margin-bottom: 10px;
+}
+h2{
+    margin-bottom: 20px;
+}
+#board {
+    min-width: 400px;
+    min-height: 400px;
+
+    background-color: #cdc1b5;
+    /* border:  */
+    outline:6px solid #bbada0; ;
+
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tile {
+    width: 100px;
+    height: 100px;
+    border: 5px solid #bbada0;
+
+    font-size: 40px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* colored tiles */
+
+.x2 {
+    background-color: #eee4da;
+    color: #727371;
+}
+
+.x4 {
+    background-color: #ece0ca;
+    color: #727371;
+}
+
+.x8 {
+    background-color: #f4b17a;
+    color: white;
+}
+
+.x16{
+    background-color: #f59575;
+    color: white;
+}
+
+.x32{
+    background-color: #f57c5f;
+    color: white;
+}
+
+.x64{
+    background-color: #f65d3b;
+    color: white;
+}
+
+.x128{
+    background-color: #edce71;
+    color: white;
+}
+
+.x256{
+    background-color: #edcc63;
+    color: white;
+}
+
+.x512{
+    background-color: #edc651;
+    color: white;
+}
+
+.x1024{
+    background-color: #eec744;
+    color: white;
+}
+
+.x2048{
+    background-color: #ecc230;
+    color: white;
+}
+
+.x4096 {
+    background-color: #fe3d3d;
+    color: white;
+}
+
+.x8192 {
+    background-color: #ff2020;
+    color: white;
+}
+
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px; /* reduced gap from 40px to 20px */
+    padding: 20px;
+    flex-wrap: wrap;
+}
+.game-board {
+    text-align: center;
+}
+
+#board {
+    width: 400px;
+    height: 400px;
+    background-color: #cdc1b5;
+    outline: 6px solid #bbada0;
+    margin: 10px auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Leaderboard styling (same as before, with minor improvements) */
+.leaderboard-container {
+    width: 300px;
+    background: #fdf6e3;
+    border: 3px solid #bbada0;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-left: 200px;
+    position: absolute;
+    right:0px;
+    top:140px;
+}
+
+.leaderboard-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.leaderboard-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.leaderboard-list li {
+    background: #fffaf0;
+    margin: 8px 0;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border-left: 5px solid #ffcc00;
+    font-size: 18px;
+    font-weight: bold;
+    color: #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.leaderboard-list li:nth-child(1) {
+    border-left-color: gold;
+}
+.leaderboard-list li:nth-child(2) {
+    border-left-color: silver;
+}
+.leaderboard-list li:nth-child(3) {
+    border-left-color: #cd7f32;
+}
+
+.controllers {
+    margin-top: 30px;
+    text-align: center;
+}
+
+#logout {
+    width: 100px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #bbada0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px #9e8b78;
+    transition: background-color 0.2s;
+}
+
+#newGame:hover {
+    background-color: #a89984;
+}
+
+.dpad {
+    display: inline-block;
+}
+
+.arrow {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: #f4f4f4;
+    border: 3px solid #bbada0;
+    border-radius: 10px;
+    margin: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px #ccc;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.arrow:hover {
+    background-color: #e0dcdc;
+    transform: scale(1.05);
+}
+
+.middle-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
