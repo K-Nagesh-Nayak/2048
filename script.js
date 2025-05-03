@@ -66,6 +66,49 @@ var columns = 4;
 let bestScore = 0 ;
 let gameOver = false;
 
+
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
+document.addEventListener("touchstart", function (e) {
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+}, false);
+
+document.addEventListener("touchend", function (e) {
+  touchEndX = e.changedTouches[0].screenX;
+  touchEndY = e.changedTouches[0].screenY;
+  handleSwipe();
+}, false);
+
+function handleSwipe() {
+  const dx = touchEndX - touchStartX;
+  const dy = touchEndY - touchStartY;
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    if (dx > 50) {
+      console.log("Swiped Right");
+      slideRight(); setTwo(); checkForgameOver(); updateScore();
+    } else if (dx < -50) {
+      console.log("Swiped Left");
+      
+      slideLeft(); setTwo(); checkForgameOver();updateScore();
+    }
+  } else {
+    if (dy > 50) {
+      console.log("Swiped Down");
+      slideDown(); setTwo(); checkForgameOver(); updateScore();
+
+    } else if (dy < -50) {
+      console.log("Swiped Up");
+      slideUp(); setTwo(); checkForgameOver();updateScore();
+    }
+  }
+}
+
+
 let bestPlayer = localStorage.getItem("username");
 let logout = document.getElementById("logout");
 
@@ -152,10 +195,10 @@ let right=document.getElementById("right");
 let up=document.getElementById("up");
 let down=document.getElementById("down");
 
-left.addEventListener("click", () => {slideLeft(); setTwo(); checkForgameOver();});
-right.addEventListener("click", () => {slideRight(); setTwo(); checkForgameOver();});
-up.addEventListener("click", () => {slideUp(); setTwo(); checkForgameOver();});
-down.addEventListener("click", () => {slideDown(); setTwo(); checkForgameOver();});
+left.addEventListener("click", () => {slideLeft(); setTwo(); checkForgameOver(); updateScore();});
+right.addEventListener("click", () => {slideRight(); setTwo(); checkForgameOver();updateScore();});
+up.addEventListener("click", () => {slideUp(); setTwo(); checkForgameOver();updateScore();});
+down.addEventListener("click", () => {slideDown(); setTwo(); checkForgameOver();updateScore();});
 
 
 document.addEventListener('keyup', (e) => {
@@ -176,11 +219,14 @@ document.addEventListener('keyup', (e) => {
         slideDown();
         setTwo();
     }
-    document.getElementById("score").innerText = score;
+    updateScore();
 
     checkForgameOver();
 })
 
+function updateScore() {
+    document.getElementById("score").innerText = score;
+}
 
 function checkForgameOver() {
     if (!hasEmptyTile() && noMovesAvailable()) {
