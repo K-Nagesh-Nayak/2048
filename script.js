@@ -72,6 +72,25 @@ let touchStartY = 0;
 let touchEndX = 0;
 let touchEndY = 0;
 
+const loginBtn = document.getElementById("loginBtn");
+const modal = document.getElementById("loginModal");
+const closeModal = document.getElementById("closeModal");
+const loginForm = document.getElementById("loginForm");
+
+loginBtn.addEventListener("click", () => {
+      modal.style.display = "block";
+    });
+
+    closeModal.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target == modal) {
+        modal.style.display = "none";
+      }
+    });
+
 boardDiv.addEventListener("touchstart", function (e) {
   touchStartX = e.changedTouches[0].screenX;
   touchStartY = e.changedTouches[0].screenY;
@@ -144,6 +163,9 @@ bestPlayer = localStorage.getItem("username");
  bestScore = localStorage.getItem("bestScore");
 document.getElementById("bestPlayer").innerText = bestPlayer;
 document.getElementById("bestScore").innerText = bestScore;
+
+
+ 
 
 function setGame() {
     // board = [
@@ -247,6 +269,7 @@ function slide(row) {
         if (row[i] == row[i+1]) {
             row[i] *= 2;
             row[i+1] = 0;
+            console.log(board)
             score += row[i];
             showLeaderboard() 
             if(score > bestScore){

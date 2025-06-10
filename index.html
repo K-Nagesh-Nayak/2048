@@ -11,6 +11,20 @@
     
 
     <div class="container">
+       <button id="loginBtn">Login</button>
+
+
+         <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h2>Login</h2>
+      <form id="loginForm">
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
         <div class="game-board">
           <h1>2048</h1>
           <h2>Best Score: <span id="bestScore">0</span> by <span id="bestPlayer">Guest</span></h2>
