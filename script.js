@@ -438,18 +438,37 @@ function hasEmptyTile() {
 
 
 function showLeaderboard() {
-    const deref = ref(db);
-    console.log("deref", deref);
-    get(deref).then((snapshot) => {
+    const leaderboardRef = ref(db, "users");
+
+    get(leaderboardRef).then((snapshot) => {
         if (snapshot.exists()) {
-            let data = snapshot.val();
-            let players = Object.values(data);
-            displayLeaderboard(players);
-        } else {
-            console.log("No data available");
+            const usersData = snapshot.val();
+            const leaderboard = [];
+
+            for (let uid in usersData) {
+                const user = usersData[uid];
+                const topScores = Array.isArray(user.topScores) ? user.topScores : [0];
+                const bestScore = Math.max(...topScores);
+                leaderboard.push({
+                    username: user.username || "Unknown",
+                    bestScore: bestScore
+                });
+            }
+
+            // Sort by best score descending
+            leaderboard.sort((a, b) => b.bestScore - a.bestScore);
+
+            // Take top 10
+            const top10 = leaderboard.slice(0, 10);
+
+            // Render leaderboard in HTML
+            const leaderboardElement = document.getElementById("leaderboard");
+            leaderboardElement.innerHTML += "<ol>" +
+                top10.map(player => `<li>${player.username}: ${player.bestScore}</li>`).join("") +
+                "</ol>";
         }
     }).catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching leaderboard:", error);
     });
 }
 
