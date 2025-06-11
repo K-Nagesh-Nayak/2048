@@ -463,7 +463,7 @@ function showLeaderboard() {
 
             // Render leaderboard in HTML
             const leaderboardElement = document.getElementById("leaderboard");
-            leaderboardElement.innerHTML += "<ol>" +
+            leaderboardElement.innerHTML = "<ol>" +
                 top10.map(player => `<li>${player.username}: ${player.bestScore}</li>`).join("") +
                 "</ol>";
         }
