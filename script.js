@@ -2,7 +2,8 @@ console.log("hello world");
 
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword , signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { getDatabase, ref, set, get, child, update, remove } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyA3oj8c4jDv6CNJW9BFUPKqv_k0_22dqrI",
@@ -18,11 +19,41 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-
-
-import { getDatabase, ref, set, get, child, update, remove } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
-
 const db = getDatabase();
+
+
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        const uid = user.uid;
+        localStorage.setItem("uid", uid);
+
+        if (uid !== "2fIJHo7Cisdpj5pwS2M7w7vAAJa2") {
+            // Freeze functions to prevent tampering
+            document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            document.addEventListener('keydown', (e) => {
+                if (
+                    e.key === 'F12' ||
+                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+                    (e.ctrlKey && e.key === 'U')
+                ) {
+                    e.preventDefault();
+                    alert("Dev tools access is restricted.");
+                }
+            });
+
+            console.log("Function protection active for non-admin user.");
+        } else {
+            console.log("Admin UID detected — function freezing skipped.");
+        }
+    } else {
+        console.warn("User not logged in — function protection not applied.");
+    }
+});
+
+
 
 
 
@@ -44,12 +75,13 @@ var rows = 4;
 var columns = 4;
 let bestScore = 0;
 let gameOver = false;
-let userLogedIn = false;
 const boardDiv = document.getElementById("board");
+let bestPlayer = localStorage.getItem("username");
 
+const uid = localStorage.getItem("uid");
+const username = localStorage.getItem("username");
 
 const signupBtn = document.getElementById("signupBtn");
-// const loginBtn= document.getElementById("loginbtn");
 const modal = document.getElementById("loginModal");
 const closeModal = document.getElementById("closeModal");
 const loginForm = document.getElementById("loginForm");
@@ -57,58 +89,88 @@ const loginForm = document.getElementById("loginForm");
 
 
 signupBtn.addEventListener("click", () => {
-    // alert("Login button clicked!");
-
     if (modal.style.display === "none") {
         modal.style.display = "block";
     } else {
         modal.style.display = "none";
     }
 });
-// loginBtn.addEventListener("click", () => {
-//     // alert("Login button clicked!");
 
-//     if (modal.style.display === "none") {
-//         modal.style.display = "block";
-//     } else {
-//         modal.style.display = "none";
-//     }
-// });
 closeModal.addEventListener("click", () => {
     modal.style.display = "none";
 });
+
+const isSignup = document.getElementById("isSignup");
+const usernameContainer = document.getElementById("usernameContainer");
+
+isSignup.addEventListener("change", () => {
+    usernameContainer.style.display = isSignup.checked ? "block" : "none";
+});
+
 
 
 const submit = document.getElementById("submit");
 submit.addEventListener("click", (event) => {
     event.preventDefault();
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
     const isSignup = document.getElementById("isSignup").checked;
 
     if (isSignup) {
         // SIGN UP
+        const username = document.getElementById("username").value.trim();
+
+        if (!username) {
+            alert("Please enter a username.");
+            return;
+        }
+
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                console.log(user);
+                const uid = user.uid;
+
+                set(ref(db, "users/" + uid), {
+                    username: username,
+                    email: email,
+                    topScores: [0, 0, 0, 0, 0]
+                });
+
                 alert("User created successfully!");
+                localStorage.setItem("uid", uid);
+                localStorage.setItem("username", username);
                 modal.style.display = "none";
-                // Optional: save user info to database
             })
             .catch((error) => {
                 alert(error.message);
             });
+
     } else {
         // LOGIN
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                console.log(user);
+                const uid = user.uid;
+                localStorage.setItem("uid", uid);
+
+                get(ref(db, "users/" + uid)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const data = snapshot.val();
+                        localStorage.setItem("username", data.username);
+
+                        // Get the highest score from topScores array
+                        if (Array.isArray(data.topScores) && data.topScores.length > 0) {
+                            const best = Math.max(...data.topScores);
+                            localStorage.setItem("bestScore", best);
+                        } else {
+                            localStorage.setItem("bestScore", 0);
+                        }
+                    }
+                });
+
                 alert("Logged in successfully!");
                 modal.style.display = "none";
-                // Optional: fetch user data, update UI, etc.
             })
             .catch((error) => {
                 alert(error.message);
@@ -132,24 +194,24 @@ submit.addEventListener("click", (event) => {
 
 window.onload = function () {
 
-    if (bestPlayer == null || bestPlayer == undefined || bestPlayer == "") {
-        let plyer = prompt("Enter username", "Guest");
-        document.getElementById("bestPlayer").innerText = plyer;
-        localStorage.setItem("username", plyer);
+    // if (bestPlayer == null || bestPlayer == undefined || bestPlayer == "") {
+    //     let plyer = prompt("Enter username", "Guest");
+    //     document.getElementById("bestPlayer").innerText = plyer;
+    //     localStorage.setItem("username", plyer);
 
-    }
+    // }
 
-    // set(ref(db, 'users/' + localStorage.getItem("username")), {username: localStorage.getItem("username"), score: localStorage.getItem("bestScore")});
+    // set(ref(db, 'users/' + localStorage.getItem("username")), { username: localStorage.getItem("username"), score: localStorage.getItem("bestScore") });
 
 
     setGame();
 
 }
 
-// bestPlayer = localStorage.getItem("username");
-//  bestScore = localStorage.getItem("bestScore");
-// document.getElementById("bestPlayer").innerText = bestPlayer;
-// document.getElementById("bestScore").innerText = bestScore;
+bestPlayer = localStorage.getItem("username");
+bestScore = localStorage.getItem("bestScore");
+document.getElementById("bestPlayer").innerText = bestPlayer;
+document.getElementById("bestScore").innerText = bestScore;
 
 
 
@@ -178,7 +240,7 @@ function setGame() {
             document.getElementById("board").append(tile);
         }
     }
-    //create 2 to begin the game
+
     setTwo();
     setTwo();
     showLeaderboard()
@@ -240,7 +302,8 @@ function updateScore() {
 function checkForgameOver() {
     if (!hasEmptyTile() && noMovesAvailable()) {
         setTimeout(() => {
-            alert("Game Over!");
+            alert("Game Over! Your score: " + score);
+            onGameOver(score);  // ⬅️ Save to top 5 in Firebase
         }, 100);
     }
 }
@@ -259,12 +322,13 @@ function slide(row) {
             console.log(board)
             score += row[i];
             showLeaderboard()
-            if (score > bestScore) {
+            let cachedBest = Number(localStorage.getItem("bestScore") || 0);
+            if (score > cachedBest) {
 
                 bestScore = score;
-                localStorage.setItem("bestScore", bestScore);
-                update(ref(db, 'users/' + localStorage.getItem("username")), { score: localStorage.getItem("bestScore") });
-                document.getElementById("bestScore").innerText = bestScore;
+
+                localStorage.setItem("bestScore", score);
+                document.getElementById("bestScore").innerText = score;
             }
         }
     } //[4, 0, 2]
@@ -375,7 +439,7 @@ function hasEmptyTile() {
 
 function showLeaderboard() {
     const deref = ref(db);
-
+    console.log("deref", deref);
     get(deref).then((snapshot) => {
         if (snapshot.exists()) {
             let data = snapshot.val();
@@ -436,3 +500,56 @@ document.getElementById("toggleLeaderboardBtn").addEventListener("click", () => 
     leaderboard.classList.toggle("show");
 });
 
+function onGameOver(finalScore) {
+    updateScoreIfTop5(finalScore); // Only push if top 5-worthy
+    document.getElementById("bestScore").innerText = finalScore; // Optional UI update
+}
+
+function updateScoreIfTop5(score) {
+    const uid = localStorage.getItem("uid");
+    if (!uid) return;
+
+    const userRef = ref(db, `users/${uid}`);
+
+    get(userRef).then(snapshot => {
+        if (!snapshot.exists()) return;
+
+        const userData = snapshot.val();
+        let topScores = userData.topScores || [];
+
+        // Ensure exactly 5 elements
+        while (topScores.length < 5) topScores.push(0);
+
+        const minTopScore = Math.min(...topScores);
+
+        // Only update if new score is higher than the lowest
+        if (score > minTopScore) {
+            topScores.push(score);
+            topScores.sort((a, b) => b - a);  // Descending
+            topScores = topScores.slice(0, 5); // Keep only top 5
+
+            update(userRef, { topScores })
+                .then(() => console.log("Top 5 updated:", topScores))
+                .catch(err => console.error("Update failed:", err));
+        } else {
+            console.log("Score not high enough to enter top 5.");
+        }
+    });
+}
+
+
+
+let logoutBtn = document.getElementById("logoutBtn").addEventListener("click", logout);
+
+function logout() {
+    const confirmLogout = confirm("Are you sure you want to log out?");
+
+    if (confirmLogout) {
+        localStorage.removeItem("uid");
+        localStorage.removeItem("username");
+        localStorage.removeItem("bestScore");
+
+        location.reload(); // or redirect if you prefer
+        alert("You have been logged out.");
+    }
+}

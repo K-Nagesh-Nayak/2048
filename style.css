@@ -258,7 +258,7 @@ h2{
       z-index: 1000; 
       left: 0;
       top: 0;
-      width: 100%;
+      width:100%;
       height: 100%;
       overflow: auto; 
       background-color: rgba(0,0,0,0.5);
@@ -269,7 +269,7 @@ h2{
       margin: 10% auto;
       padding: 30px;
       border-radius: 10px;
-      width: 300px;
+      width: 500px;
       position: relative;
     }
 
@@ -303,6 +303,90 @@ h2{
       color: #000;
     }
 
+
+    .card {
+      background: #fff;
+      padding: 2.5rem 2rem;
+      border-radius: 16px;
+      width: 100%;
+      min-width: 400px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h2 {
+      text-align: center;
+      margin-bottom: 1.8rem;
+      color: #333;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.85rem 1rem 0.85rem 2.7rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: #4b6cb7;
+    }
+
+    .input-group svg {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      fill: #999;
+      height: 20px;
+      width: 20px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      font-size: 0.95rem;
+      color: #444;
+      margin-bottom: 1.5rem;
+    }
+
+    .checkbox-group input {
+      margin-right: 0.5rem;
+    }
+
+    .btn {
+      width: 100%;
+      background: #4b6cb7;
+      color: #fff;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #395591;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 2rem 1.2rem;
+      }
+    }
 /* Hide by default */
 /* Mobile-only Button (from earlier) */
 .mobile-only {
