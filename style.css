@@ -240,7 +240,7 @@ h2{
 }
 
 
- #loginBtn {
+ #loginBtn ,#signupBtn{
       padding: 12px 24px;
       font-size: 18px;
       background-color: #007BFF;
@@ -252,7 +252,7 @@ h2{
 
 
 
-    .modal {
+    .modal{
       display: none; 
       position: fixed; 
       z-index: 1000; 
