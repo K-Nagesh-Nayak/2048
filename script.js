@@ -179,33 +179,10 @@ submit.addEventListener("click", (event) => {
 });
 
 
-
-
-// logout.addEventListener("click", function () {
-//     let confirm = window.confirm("Are you sure you want to logout?");
-//     if (confirm == false) {
-//         return;
-//     }else{
-//     localStorage.removeItem("username");
-//     localStorage.removeItem("bestScore");
-//     window.location.reload();
-//     }
-// })
-
 window.onload = function () {
-
-    // if (bestPlayer == null || bestPlayer == undefined || bestPlayer == "") {
-    //     let plyer = prompt("Enter username", "Guest");
-    //     document.getElementById("bestPlayer").innerText = plyer;
-    //     localStorage.setItem("username", plyer);
-
-    // }
-
-    // set(ref(db, 'users/' + localStorage.getItem("username")), { username: localStorage.getItem("username"), score: localStorage.getItem("bestScore") });
-
-
+showUserTopScores() 
     setGame();
-
+showLeaderboard()
 }
 
 bestPlayer = localStorage.getItem("username");
@@ -217,13 +194,6 @@ document.getElementById("bestScore").innerText = bestScore;
 
 
 function setGame() {
-    // board = [
-    //     [2, 2, 2, 2],
-    //     [2, 2, 2, 2],
-    //     [4, 4, 8, 8],
-    //     [4, 4, 8, 8]
-    // ];
-
     board = [
         [0, 0, 0, 0],
         [0, 0, 0, 0],
@@ -248,7 +218,7 @@ function setGame() {
 
 function updateTile(tile, num) {
     tile.innerText = "";
-    tile.classList.value = ""; //clear the classList
+    tile.classList.value = ""; 
     tile.classList.add("tile");
     if (num > 0) {
 
@@ -571,4 +541,29 @@ function logout() {
         location.reload(); // or redirect if you prefer
         alert("You have been logged out.");
     }
+}
+
+
+function showUserTopScores() {
+  const userTopScoresEl = document.getElementById("userTopScores");
+  userTopScoresEl.innerHTML = ""; // Clear previous scores
+
+  const uid = localStorage.getItem("uid");
+  if (!uid) return;
+
+  get(ref(db, "users/" + uid)).then(snapshot => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      const scores = data.topScores || [];
+      scores.sort((a, b) => b - a); // Descending
+
+      scores.slice(0, 5).forEach(score => {
+        const li = document.createElement("li");
+        li.textContent = score;
+        userTopScoresEl.appendChild(li);
+      });
+    }
+  }).catch(error => {
+    console.error("Failed to load user scores:", error);
+  });
 }

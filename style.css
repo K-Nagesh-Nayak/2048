@@ -48,109 +48,133 @@ h2{
 /* colored tiles */
 
 .x2 {
-    background-color: #eee4da;
-    color: #727371;
+  background-color: #eee4da;
+  color: #776e65;
 }
 
 .x4 {
-    background-color: #ece0ca;
-    color: #727371;
+  background-color: #ede0c8;
+  color: #776e65;
 }
 
 .x8 {
-    background-color: #f4b17a;
-    color: white;
+  background-color: #f2b179;
+  color: white;
 }
 
-.x16{
-    background-color: #f59575;
-    color: white;
+.x16 {
+  background-color: #f59563;
+  color: white;
 }
 
-.x32{
-    background-color: #f57c5f;
-    color: white;
+.x32 {
+  background-color: #f67c5f;
+  color: rgb(206, 202, 202);
 }
 
-.x64{
-    background-color: #f65d3b;
-    color: white;
+.x64 {
+  background-color: #f65e3b;
+  color: white;
 }
 
-.x128{
-    background-color: #edce71;
-    color: white;
+.x128 {
+  background-color: #edcf72;
+  color: #f9f6f2;
 }
 
-.x256{
-    background-color: #edcc63;
-    color: white;
+.x256 {
+  background-color: #edcc61;
+  color: #f9f6f2;
 }
 
-.x512{
-    background-color: #edc651;
-    color: white;
+.x512 {
+  background-color: #edc850;
+  color: #f9f6f2;
 }
 
-.x1024{
-    background-color: #eec744;
-    color: white;
+.x1024 {
+  background-color: #edc53f;
+  color: #f9f6f2;
 }
 
-.x2048{
-    background-color: #ecc230;
-    color: white;
+.x2048 {
+  background-color: #edc22e;
+  color: #f9f6f2;
 }
 
 .x4096 {
-    background-color: #fe3d3d;
-    color: white;
+  background-color: #3c3a32;
+  color: #f9f6f2;
 }
 
 .x8192 {
-    background-color: #ff2020;
-    color: white;
+  background-color: #1c1c1c;
+  color: #f9f6f2;
 }
+
 
 
 
 .container {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 20px; /* reduced gap from 40px to 20px */
-    padding: 20px;
-    flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 .game-board {
-    text-align: center;
+    flex: 1;
+  min-width: 500px;
+  text-align: center;
 }
 
 #board {
-    width: 400px;
-    height: 400px;
-    background-color: #cdc1b5;
-    outline: 6px solid #bbada0;
-    margin: 10px auto;
-    display: flex;
-    flex-wrap: wrap;
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(145deg, #b643ecc3, #8d18e7c3);
+  border: 6px solid #55036d;
+  border-radius: 15px;
+  box-shadow: inset 0 0 10px #a002fc, 0 4px 20px rgba(0, 0, 0, 0.2);
+  margin: 10px auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+  padding: 10px;
 }
 
-/* Leaderboard styling (same as before, with minor improvements) */
+.tile {
+  width: 100%;
+  height: 100%;
+  /* background-color: #eee4da; */
+  border-radius: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+  /* color: #776e65; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: all 0.2s ease-in-out;
+}
+
+.tile.empty {
+  background-color: #cdc1b4;
+  box-shadow: none;
+}
+
+
+#user-top-scores-section,
 .leaderboard-container {
-    width: 300px;
-    background: #fdf6e3;
-    border: 3px solid #bbada0;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    margin-left: 200px;
-    position: absolute;
-    right:0px;
-    top:140px;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 10px;
+  width: 200px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-.leaderboard-title {
+.leaderboard-title,#user-top-scores-section {
     font-size: 24px;
     margin-bottom: 15px;
     color: #333;
@@ -240,15 +264,32 @@ h2{
 }
 
 
- #loginBtn ,#signupBtn{
-      padding: 12px 24px;
-      font-size: 18px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+#signupBtn,
+#logoutBtn {
+  padding: 12px 24px;
+  margin: 10px;
+  border: none;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 16px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  letter-spacing: 1px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#signupBtn:hover,
+#logoutBtn:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
 
 
 
@@ -420,4 +461,111 @@ h2{
     }
   }
   
-  
+  #user-top-scores-section {
+  background-color: #ffffff20;
+  border: 2px solid #ffffff30;
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 250px;
+  margin: 20px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+#user-top-scores-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #ffdd57;
+}
+
+#userTopScores {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+#userTopScores li {
+  background-color: #292929;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: center;
+  transition: background 0.3s;
+}
+
+#userTopScores li:hover {
+  background-color: #444;
+}
+
+
+.leaderboard-container {
+  background-color: #ffffff20;
+  border: 2px solid #ffdd5725;
+  border-radius: 20px;
+  padding: 20px;
+  max-width: 280px;
+  margin: 20px;
+  color: #fff;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  font-family: 'Segoe UI', sans-serif;
+  backdrop-filter: blur(10px);
+}
+
+.leaderboard-title {
+  font-size: 1.8rem;
+  color: #ffdd57;
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ffffff40;
+  padding-bottom: 8px;
+}
+
+.leaderboard-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.leaderboard-list li {
+  background-color: #f7f4f4;
+  margin-bottom: 10px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.leaderboard-list li:hover {
+  background-color: #ffffff;
+  transform: scale(1.02);
+}
+
+.leaderboard-list li span.name {
+  color: #ffdd57;
+}
+
+.leaderboard-list li span.score {
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .main-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #user-top-scores-section,
+  .leaderboard-container {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
