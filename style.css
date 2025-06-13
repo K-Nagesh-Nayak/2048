@@ -557,12 +557,27 @@ h2{
   color: #ffffff;
 }
 
+.mobile-only {
+  display: none;
+}
+
+.mobile-toggle-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin: 10px 0;
+}
+
 @media (max-width: 768px) {
   .main-layout {
     flex-direction: column;
     align-items: center;
   }
 
+   #user-top-scores-section {
+    display: none;
+  }
   #user-top-scores-section,
   .leaderboard-container {
     width: 100%;
@@ -570,5 +585,18 @@ h2{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  .mobile-only {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
   }
 }

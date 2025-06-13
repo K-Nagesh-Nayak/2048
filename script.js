@@ -86,6 +86,19 @@ const modal = document.getElementById("loginModal");
 const closeModal = document.getElementById("closeModal");
 const loginForm = document.getElementById("loginForm");
 
+const toggleTopScoresBtn = document.getElementById("toggleTopScoresBtn");
+const userTopScoresSection = document.getElementById("user-top-scores-section");
+
+toggleTopScoresBtn.addEventListener("click", () => {
+  if (userTopScoresSection.style.display === "none" || !userTopScoresSection.style.display) {
+    userTopScoresSection.style.display = "block";
+    toggleTopScoresBtn.innerText = "Hide My Top Scores";
+  } else {
+    userTopScoresSection.style.display = "none";
+    toggleTopScoresBtn.innerText = "Show My Top Scores";
+  }
+});
+
 
 
 signupBtn.addEventListener("click", () => {

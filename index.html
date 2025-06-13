@@ -60,16 +60,18 @@
     <div class="game-board">
       <h1>2048</h1>
       <h2>Best Score: <span id="bestScore">0</span> by <span id="bestPlayer">Guest</span></h2>
-      <h2>Score: <span id="score">0</span></h2><button id="toggleLeaderboardBtn" class="mobile-only"> Show
-        Leaderboard</button>
-
+      <h2>Score: <span id="score">0</span></h2>
+      <div class="mobile-toggle-buttons">
+  <button id="toggleLeaderboardBtn" class="mobile-only">Show Leaderboard</button>
+  <button id="toggleTopScoresBtn" class="mobile-only">Show My Top Scores</button>
+</div>
       <div id="board"></div>
       <button id="signupBtn">Sign Up</button>
       <button id="logoutBtn">log out</button>
 
       <div class="controllers">
 
-        <div class="dpad">
+        <div class="dpad mobile-only">
           <button id="up" class="arrow">↑</button>
           <div class="middle-row">
             <button id="left" class="arrow">←</button>
