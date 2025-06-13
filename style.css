@@ -566,6 +566,9 @@ h2{
   #user-top-scores-section,
   .leaderboard-container {
     width: 100%;
-    margin-bottom: 1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
